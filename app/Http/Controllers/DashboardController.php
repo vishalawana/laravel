@@ -30,13 +30,16 @@ class DashboardController extends Controller
     
         public function logout()
         {
-            Auth::logout();
-            return redirect()->route('Login');
-        }
-        public function update(){
             
+          dd('here');
+            Auth::logout();
+    
+            return redirect()->route('/login');
         }
- }
+        public function test(){
+            dd("hello");
+        }
+}
     
 
 

@@ -26,9 +26,9 @@ Route::post('/login',[LoginController::class,'authenticate'])->name('login');
 
 Route::middleware(['auth'])->group (function(){
     Route::get('/dashboard',[DashboardController::class,'index'])->name('Dashboard');
-    Route::post('/dashboard',[DashboardController::class,'logout'])->name('logout');
-    Route::get('/edit/{id}',[FormController::class,'edit'])->name('form.edit');
-    Route::post('/update{id?}',[FormController::class,'update'])->name('form.update');
+    Route::post('/logout',[DashboardController::class, 'test'])->name('logout');
+    Route::get('/edit/{id}',[UserUpdateController::class,'edit'])->name('form.edit');
+    Route::post('/update{id?}',[UserUpdateCnontroller::class,'update'])->name('form.update');
 });
 
 

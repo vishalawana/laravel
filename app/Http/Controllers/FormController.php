@@ -16,23 +16,21 @@ use App\Http\Requests\UserUpdateRequest;
 
 class FormController extends Controller
 {
-    public function index(){
-        return view("Signup");
+    public function index()
+    {
+        if (Auth::check()) {
+
+            return redirect('/dashboard');
+        }
+
         
+        return view('Signup');
     }
 
 
     public function store(UserStoreRequest $request){
-        // dd('here in controll', $request->file('profile'));
-        // dd($request);
-        
         $validatedData = $request->validated();
         $fileName = $request->file('profile')->getClientOriginalName();
-
-
-        // $image = $request->file('profile');
-        // $path = $image->store('uploads', 'public');
-
         
         $user = User::create([
             'name' => $validatedData['name'],
@@ -50,26 +48,22 @@ class FormController extends Controller
             'image' => $fileName
         ]);
         
-        $courses = Course::whereIn('course', $request->input('courses', []))->pluck('id')->toArray();
-        $user->Courses()->attach($courses);
+        $courses = $request->input('courses', []);
+    $user->courses()->attach($courses);
         
         $request->file('profile')->storeAs('images', $fileName, 'images');
 
-
-
         return redirect()->route('login');
     }
-
-
+    // editing the info of user
         public function edit($id){
             $allCourses = Course::all();
-
             $user = Auth::user();
-            // $userDetail = $user->userDetail;
             $courses = $user->courses;
-            // dd($allCourses);
             return view('Update',compact('user','allCourses'));
         }
+
+        //updating the info in databse
         public function update(UserUpdateRequest $request){
             dd('here');
             $user = Auth::user();

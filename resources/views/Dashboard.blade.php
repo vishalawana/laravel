@@ -16,7 +16,12 @@
     justify-content: space-between;">
     <nav class="navbar navbar-light " >
         <form class="form-inline ">
-            <a href = "{{route('logout')}}"><button class="btn btn-outline-success" type="button">Logout</button>
+        <form class="form-inline my-2 my-lg-0" action="{{ route('logout') }}" method="post">
+                @csrf
+                
+                <button class="btn btn-outline-success my-2 my-sm-0" name="logout" type="submit" href="{{ route('logout') }}">
+                    Logout</button>
+            </form>
           <a href = "{{route('form.edit',['id'=>$user->id])}}"><button class="btn btn-sm btn-outline-secondary" type="button">Edit</button></a>
         </form>
       </nav>
